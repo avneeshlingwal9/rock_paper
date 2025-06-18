@@ -1,0 +1,26 @@
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.choices{
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-evenly;
+}
+.results{
+
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+
+}
+.current{
+
+    text-align: center;
+    color: #8b0000;
+}

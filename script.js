@@ -1,3 +1,7 @@
+
+let curr_result = document.querySelector(".current")
+let humScore = document.querySelector(".humScore");
+let compScore = document.querySelector(".compScore");
 function computerChoice(){
     let num = Math.floor(Math.random() * 3)
 
@@ -18,85 +22,110 @@ function computerChoice(){
 
 }
 
-function humanChoice(){
-    
-    let choice = prompt("Enter your choice: ");
-    return choice.toLowerCase();
-}
+
+
+
 
 function playRound(humChoice , compChoice){
 
 
     if(humChoice === compChoice){
 
-        console.log("The game is drawn.");
+        curr_result.textContent = "The game is drawn.";
         return 0;
     }
     else if(humChoice === "rock" && compChoice === "paper"){
-        console.log("You lose ! Paper beats Rock");
+        curr_result.textContent = "You lose ! Paper beats Rock";
         return -1;
     }
 
     else if(humChoice === "rock" && compChoice === "scissor"){
 
-        console.log("You win ! Rock beats Scissor");
+        curr_result.textContent = "You win ! Rock beats Scissor";
         return 1;
     }
 
     else if(humChoice === "paper" && compChoice === "rock"){
 
-        console.log("You Win ! Paper beats Rock");
+        curr_result.textContent = "You Win ! Paper beats Rock";
         return 1;
     }
 
     else if(humChoice === "paper" && compChoice === "scissor"){
 
-        console.log("You Lose ! Scissor beats Paper");
+        curr_result.textContent = "You Lose ! Scissor beats Paper";
         return -1;
 
     }
     else if(humChoice === "scissor" && compChoice === "rock")
-{
-    console.log("You Lose ! Rock beats Scissor");
-    return -1; 
-}
-else if(humChoice === "scissor" && compChoice === "paper"){
+    {
+        curr_result.textContent = "You Lose ! Rock beats Scissor";
+        return -1; 
 
-    console.log("You Win ! Scissor beats Paper");
-    return 1; 
+    }
+    else if(humChoice === "scissor" && compChoice === "paper"){
+
+        curr_result.textContent = "You Win ! Scissor beats Paper";
+        return 1; 
+}}
+
+let buttons = document.querySelectorAll("button");
+function extract(e){
+
+    return e.target.value; 
 }
+let humWin = 0 , comWin = 0 ; 
+
+function playGame(e){
+
+    let humanChoice = e.target.value;
+
+    let compChoice = computerChoice();
+
+
+    if(humWin < 5 && comWin < 5){
+
+        let res = playRound(humanChoice , compChoice);
+
+        if(res === 1){
+            humWin++;
+        }
+        else if(res === -1){
+            comWin++;
+        }
+    }
+
+    humScore.textContent = humWin;
+    compScore.textContent = comWin;
+
+    if(humWin === 5){
+
+        curr_result.textContent = "You Won !";
+
+
+
+}
+if(comWin === 5){
+
+    curr_result.textContent = "Computer Won !";
+
+
+
+}
+
+
+
+
     
 
 }
+buttons.forEach(
 
-function playGame(){
-    let compWin = 0 , humWin = 0 ; 
-    for(let i = 0 ; i < 5 ; i++){
-        let humChoice = humanChoice();
-        let compChoice = computerChoice();
-        let winner = playRound(humChoice , compChoice);
-        if(winner === -1){
-            compWin++;
-        }
-        else if(winner === 1){
-            humWin++;
-        }
-
+    (button) => {
+        button.addEventListener("click", playGame);
     }
 
-    if(compWin === humWin){
-        console.log("Game Drawn");
-    }
+)
 
-    else if(compWin > humWin){
-        console.log("You Lose the game.");
-    }
-    else{
 
-        console.log("You Won the game.");
 
-    }
-
-}
-
-playGame();
